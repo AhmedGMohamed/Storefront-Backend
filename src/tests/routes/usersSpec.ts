@@ -15,13 +15,23 @@ describe("Users route test suite", () => {
   });
 
   it("Should get a list of all users", async () => {
-    const response = await request.get("/users");
+    const response = await request
+      .get("/users")
+      .set(
+        "Authorization",
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+      );
     expect(response.body[0]).toBeTruthy();
     expect(response.body[1]).toBeTruthy();
   });
 
   it("Should get the user with id 2", async () => {
-    const response = await request.get("/users/2");
+    const response = await request
+      .get("/users/2")
+      .set(
+        "Authorization",
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+      );
     expect(JSON.stringify(response.body)).toContain('"id":2');
   });
 

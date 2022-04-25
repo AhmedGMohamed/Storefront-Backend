@@ -47,7 +47,7 @@ var checkPassword_1 = __importDefault(require("../utils/checkPassword"));
 var express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
 var Users = new user_1.UserStore();
-router.get("/", function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.get("/", verifyAuthToken_1.default, function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var response, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -66,7 +66,7 @@ router.get("/", function (_req, res) { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); });
-router.get("/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.get("/:id", verifyAuthToken_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id, response, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {

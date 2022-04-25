@@ -8,7 +8,7 @@ import express from "express";
 const router = express.Router();
 const Users = new UserStore();
 
-router.get("/", async (_req: express.Request, res: express.Response) => {
+router.get("/", authenticate, async (_req: express.Request, res: express.Response) => {
   //Gets a list of users and returns a JSON containing the list
   try {
     const response = await Users.index();
@@ -18,7 +18,7 @@ router.get("/", async (_req: express.Request, res: express.Response) => {
   }
 });
 
-router.get("/:id", async (req: express.Request, res: express.Response) => {
+router.get("/:id", authenticate,async (req: express.Request, res: express.Response) => {
   //Gets a user with the supplied id and responds with a JSON containing the user
   try {
     const id = req.params.id;
