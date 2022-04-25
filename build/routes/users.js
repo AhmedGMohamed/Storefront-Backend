@@ -197,8 +197,12 @@ router.post("/authenticate/:id", function (req, res) { return __awaiter(void 0, 
                 return [4 /*yield*/, Users.authenticate(req.params.id, req.body.password)];
             case 1:
                 u = _a.sent();
-                token = jsonwebtoken_1.default.sign({ user: u }, process.env.TOKEN_SECRET);
-                res.json(token);
+                if (u != null) {
+                    token = jsonwebtoken_1.default.sign({ user: u }, process.env.TOKEN_SECRET);
+                    res.json(token);
+                    return [2 /*return*/];
+                }
+                res.status(401).json("Invalid Password Given");
                 return [3 /*break*/, 3];
             case 2:
                 error_6 = _a.sent();

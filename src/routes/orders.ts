@@ -98,15 +98,15 @@ router.delete(
 );
 
 router.post(
-  "/:order_id/product",
+  "/product/:product_id",
   authenticate,
   async (req: express.Request, res: express.Response) => {
     // Adds a product to an existing open order
     try {
       const productOrder: ProductOrder = {
         quantity: parseInt(req.body.quantity),
-        order_id: req.params.order_id,
-        product_id: req.body.product_id
+        order_id: req.body.order_id,
+        product_id: req.params.product_id
       };
       const orderStatus = (await Orders.show(productOrder.order_id)).status;
       if (orderStatus != "open") {

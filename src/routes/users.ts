@@ -8,26 +8,34 @@ import express from "express";
 const router = express.Router();
 const Users = new UserStore();
 
-router.get("/", authenticate, async (_req: express.Request, res: express.Response) => {
-  //Gets a list of users and returns a JSON containing the list
-  try {
-    const response = await Users.index();
-    res.json(response);
-  } catch (error) {
-    res.status(400).json(`${error}`);
+router.get(
+  "/",
+  authenticate,
+  async (_req: express.Request, res: express.Response) => {
+    //Gets a list of users and returns a JSON containing the list
+    try {
+      const response = await Users.index();
+      res.json(response);
+    } catch (error) {
+      res.status(400).json(`${error}`);
+    }
   }
-});
+);
 
-router.get("/:id", authenticate,async (req: express.Request, res: express.Response) => {
-  //Gets a user with the supplied id and responds with a JSON containing the user
-  try {
-    const id = req.params.id;
-    const response = await Users.show(id);
-    res.json(response);
-  } catch (error) {
-    res.status(400).json(`${error}`);
+router.get(
+  "/:id",
+  authenticate,
+  async (req: express.Request, res: express.Response) => {
+    //Gets a user with the supplied id and responds with a JSON containing the user
+    try {
+      const id = req.params.id;
+      const response = await Users.show(id);
+      res.json(response);
+    } catch (error) {
+      res.status(400).json(`${error}`);
+    }
   }
-});
+);
 
 router.post("/", async (req: express.Request, res: express.Response) => {
   //Creates a user and signs a JWT token using the user data, then responds with the JWT token.
@@ -119,8 +127,12 @@ router.post(
   async (req: express.Request, res: express.Response) => {
     try {
       const u = await Users.authenticate(req.params.id, req.body.password);
-      const token = jwt.sign({ user: u }, process.env.TOKEN_SECRET as string);
-      res.json(token);
+      if (u != null) {
+        const token = jwt.sign({ user: u }, process.env.TOKEN_SECRET as string);
+        res.json(token);
+        return;
+      }
+      res.status(401).json(`Invalid Password Given`);
     } catch (error) {
       res.status(401).json(`${error}`);
     }

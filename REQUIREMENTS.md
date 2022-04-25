@@ -33,7 +33,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Update (args: id, Order)[token required]: `'/orders/:id' [PUT] (token)`
 - Delete (args: id)[token required]: `'/orders/:id' [DELETE] (token)`
 - Completed orders by user (args: user_id)[token required]: `'/orders/user/:user_id' [GET] (token)`
-- Add product to order (args: order_id, ProductOrder)[token required]: `'/orders/:order_id/product' [POST] (token)`
+- Add product to order (args: product_id, ProductOrder)[token required]: `'/orders/product/:product_id' [POST] (token)`
 
 ## Data Shapes
 
