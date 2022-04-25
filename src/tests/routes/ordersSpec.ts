@@ -5,7 +5,7 @@ import resetTables from "../../utils/resetTables";
 
 const request = supertest(app);
 
-describe("Orders route test suite", () => {
+describe("Orders route test suite", async () => {
   beforeAll(async () => {
     await insertMockupData();
   });
@@ -15,12 +15,17 @@ describe("Orders route test suite", () => {
   });
 
   it("Should respond with a JSON containing an array of orders & HTTP status code 200", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
       .get("/orders")
-      .set(
-        "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
-      );
+      .set("Authorization", `Bearer ${token}`);
     expect(response.statusCode).toEqual(200);
     expect(JSON.stringify(response.body)).toEqual(
       '[{"id":1,"status":"closed","user_id":"1"},{"id":2,"status":"open","user_id":"2"}]'
@@ -28,12 +33,17 @@ describe("Orders route test suite", () => {
   });
 
   it("Should respond with a JSON containing an order with id 1 & HTTP status code 200 ", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
       .get("/orders/1")
-      .set(
-        "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
-      );
+      .set("Authorization", `Bearer ${token}`);
     expect(response.statusCode).toEqual(200);
     expect(JSON.stringify(response.body)).toEqual(
       '{"id":1,"status":"closed","user_id":"1"}'
@@ -41,11 +51,19 @@ describe("Orders route test suite", () => {
   });
 
   it("Should create an order and respond with a JSON containing an order with id 3, Status4 & HTTP status code 200 ", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
       .post("/orders")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       )
       .send({ status: "Status4", user_id: "3" });
     expect(response.statusCode).toEqual(200);
@@ -55,11 +73,19 @@ describe("Orders route test suite", () => {
   });
 
   it("Should edit the order with id 3 and respond with a JSON containing an order with id 3, Status3, & HTTP status code 200", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
       .put("/orders/3")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       )
       .send({ status: "Status3", user_id: "3" });
     expect(response.statusCode).toEqual(200);
@@ -69,11 +95,19 @@ describe("Orders route test suite", () => {
   });
 
   it("Should delete the order with id 3 and respond with a JSON containing the delted order with an HTTP status code 200", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
       .delete("/orders/3")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       );
     expect(response.statusCode).toEqual(200);
     expect(JSON.stringify(response.body)).toEqual(
@@ -82,11 +116,19 @@ describe("Orders route test suite", () => {
   });
 
   it("Should add a new item to the order_product table", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
       .post("/orders/product/1")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       )
       .send({ quantity: 5, order_id: "2" });
     expect(response.statusCode).toEqual(200);

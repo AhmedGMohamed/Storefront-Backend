@@ -90,18 +90,26 @@ describe("Products route test suite", function () {
         });
     }); });
     it("Should create a product and respond with a JSON containing a product with id 3", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+        var token, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .post("/products")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")
-                        .send({
-                        name: "Name4",
-                        price: "3",
-                        category: "Category3"
+                case 0: return [4 /*yield*/, request.post("/users").send({
+                        email: "random@example.com",
+                        firstname: "random",
+                        lastname: "name",
+                        password: "password"
                     })];
                 case 1:
+                    token = (_a.sent()).body.token;
+                    return [4 /*yield*/, request
+                            .post("/products")
+                            .set("Authorization", "Bearer ".concat(token))
+                            .send({
+                            name: "Name4",
+                            price: "3",
+                            category: "Category3"
+                        })];
+                case 2:
                     response = _a.sent();
                     expect(JSON.stringify(response.body)).toEqual('{"id":3,"name":"Name4","price":3,"category":"Category3","order_counter":"0"}');
                     return [2 /*return*/];
@@ -109,14 +117,22 @@ describe("Products route test suite", function () {
         });
     }); });
     it("Should edit the product with id 3 and respond with a JSON containing a product with id 3", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+        var token, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .put("/products/3")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")
-                        .send({ name: "Name3", price: "3", category: "Category3" })];
+                case 0: return [4 /*yield*/, request.post("/users").send({
+                        email: "random@example.com",
+                        firstname: "random",
+                        lastname: "name",
+                        password: "password"
+                    })];
                 case 1:
+                    token = (_a.sent()).body.token;
+                    return [4 /*yield*/, request
+                            .put("/products/3")
+                            .set("Authorization", "Bearer ".concat(token))
+                            .send({ name: "Name3", price: "3", category: "Category3" })];
+                case 2:
                     response = _a.sent();
                     expect(JSON.stringify(response.body)).toEqual('{"id":3,"name":"Name3","price":3,"category":"Category3","order_counter":"0"}');
                     return [2 /*return*/];
@@ -124,13 +140,21 @@ describe("Products route test suite", function () {
         });
     }); });
     it("Should delete the product with id 3 and respond with a JSON containing the deleted product", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+        var token, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .delete("/products/3")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")];
+                case 0: return [4 /*yield*/, request.post("/users").send({
+                        email: "random@example.com",
+                        firstname: "random",
+                        lastname: "name",
+                        password: "password"
+                    })];
                 case 1:
+                    token = (_a.sent()).body.token;
+                    return [4 /*yield*/, request
+                            .delete("/products/3")
+                            .set("Authorization", "Bearer ".concat(token))];
+                case 2:
                     response = _a.sent();
                     expect(JSON.stringify(response.body)).toEqual('{"id":3,"name":"Name3","price":3,"category":"Category3","order_counter":"0"}');
                     return [2 /*return*/];

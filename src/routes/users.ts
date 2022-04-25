@@ -51,7 +51,7 @@ router.post("/", async (req: express.Request, res: express.Response) => {
       { user: response },
       process.env.TOKEN_SECRET as string
     );
-    res.json(token);
+    res.json({ token: token });
   } catch (error) {
     res.status(400).json(`${error}`);
   }

@@ -15,22 +15,38 @@ describe("Users route test suite", () => {
   });
 
   it("Should get a list of all users", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
       .get("/users")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       );
     expect(response.body[0]).toBeTruthy();
     expect(response.body[1]).toBeTruthy();
   });
 
   it("Should get the user with id 2", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
       .get("/users/2")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       );
     expect(JSON.stringify(response.body)).toContain('"id":2');
   });
@@ -48,18 +64,25 @@ describe("Users route test suite", () => {
   });
 
   it("Should respond with a 401 status code without editing the user data when wrong password is provided", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
-      .put("/users/3")
+      .put("/users/7")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       )
       .send({
-        id: 4,
         email: "userTest1@example.com",
         firstname: "First Name Test1",
         lastname: "Last Name Test1",
-        password: "false password that won't work",
+        password: "wrong password",
         newpassword: "new password"
       });
     expect(response.status).toBe(401);
@@ -67,18 +90,25 @@ describe("Users route test suite", () => {
   });
 
   it("Should respond with a 401 status code without editing the user data when wrong id is provided", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
-      .put("/users/3")
+      .put("/users/420")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       )
       .send({
-        id: 450,
         email: "userTest1@example.com",
         firstname: "First Name Test1",
         lastname: "Last Name Test1",
-        password: "false password that won't work",
+        password: "password",
         newpassword: "new password"
       });
     expect(response.status).toBe(401);
@@ -86,14 +116,21 @@ describe("Users route test suite", () => {
   });
 
   it("Should edit the user when the JWT is valid", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
-      .put("/users/4")
+      .put("/users/9")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JE16SmNCaGZGeUZnSU52RnZFU2xtaWV0bUVVTllIclhvVlJ6V0V1djIvaXFHTHZmZTc3eFQ2In0sImlhdCI6MTY1MDcyNDg0OH0.xarm8RzQIksPwXtzBzhB1B7A-7ZGRTxRh-wj2faQauY"
+        `Bearer ${token}`
       )
       .send({
-        id: 4,
         email: "userTest1@example.com",
         firstname: "First Name Test1",
         lastname: "Last Name Test1",
@@ -107,11 +144,19 @@ describe("Users route test suite", () => {
   });
 
   it("respond with a 401 status code when the wrong password is provided without deleting the user", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
-      .delete("/users/3")
+      .delete("/users/10")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       )
       .send({ password: "wrong password that won't work" });
     expect(response.status).toBe(401);
@@ -119,28 +164,44 @@ describe("Users route test suite", () => {
   });
 
   it("respond with a 401 status code when the wrong id is provided without deleting the user", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
       .delete("/users/420")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       )
-      .send({ password: "new password" });
+      .send({ password: "password" });
     expect(response.status).toBe(401);
     expect(JSON.stringify(response.body)).toContain("Invalid");
   });
 
   it("Should delete the user when the JWT is valid and the user gives the correct id", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
-      .delete("/users/4")
+      .delete("/users/12")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JE16SmNCaGZGeUZnSU52RnZFU2xtaWV0bUVVTllIclhvVlJ6V0V1djIvaXFHTHZmZTc3eFQ2In0sImlhdCI6MTY1MDcyNDg0OH0.xarm8RzQIksPwXtzBzhB1B7A-7ZGRTxRh-wj2faQauY"
+        `Bearer ${token}`
       )
-      .send({ password: "new password" });
+      .send({ password: "password" });
     expect(response.status).toBe(200);
     expect(JSON.stringify(response.body)).toContain(
-      '"id":4,"email":"userTest1@example.com"'
+      '"id":12,"email":"random@example.com"'
     );
   });
 });

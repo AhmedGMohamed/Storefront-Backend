@@ -66,13 +66,21 @@ describe("Users route test suite", function () {
         });
     }); });
     it("Should get a list of all users", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+        var token, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .get("/users")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")];
+                case 0: return [4 /*yield*/, request.post("/users").send({
+                        email: "random@example.com",
+                        firstname: "random",
+                        lastname: "name",
+                        password: "password"
+                    })];
                 case 1:
+                    token = (_a.sent()).body.token;
+                    return [4 /*yield*/, request
+                            .get("/users")
+                            .set("Authorization", "Bearer ".concat(token))];
+                case 2:
                     response = _a.sent();
                     expect(response.body[0]).toBeTruthy();
                     expect(response.body[1]).toBeTruthy();
@@ -81,13 +89,21 @@ describe("Users route test suite", function () {
         });
     }); });
     it("Should get the user with id 2", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+        var token, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .get("/users/2")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")];
+                case 0: return [4 /*yield*/, request.post("/users").send({
+                        email: "random@example.com",
+                        firstname: "random",
+                        lastname: "name",
+                        password: "password"
+                    })];
                 case 1:
+                    token = (_a.sent()).body.token;
+                    return [4 /*yield*/, request
+                            .get("/users/2")
+                            .set("Authorization", "Bearer ".concat(token))];
+                case 2:
                     response = _a.sent();
                     expect(JSON.stringify(response.body)).toContain('"id":2');
                     return [2 /*return*/];
@@ -112,21 +128,28 @@ describe("Users route test suite", function () {
         });
     }); });
     it("Should respond with a 401 status code without editing the user data when wrong password is provided", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+        var token, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .put("/users/3")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")
-                        .send({
-                        id: 4,
-                        email: "userTest1@example.com",
-                        firstname: "First Name Test1",
-                        lastname: "Last Name Test1",
-                        password: "false password that won't work",
-                        newpassword: "new password"
+                case 0: return [4 /*yield*/, request.post("/users").send({
+                        email: "random@example.com",
+                        firstname: "random",
+                        lastname: "name",
+                        password: "password"
                     })];
                 case 1:
+                    token = (_a.sent()).body.token;
+                    return [4 /*yield*/, request
+                            .put("/users/7")
+                            .set("Authorization", "Bearer ".concat(token))
+                            .send({
+                            email: "userTest1@example.com",
+                            firstname: "First Name Test1",
+                            lastname: "Last Name Test1",
+                            password: "wrong password",
+                            newpassword: "new password"
+                        })];
+                case 2:
                     response = _a.sent();
                     expect(response.status).toBe(401);
                     expect(JSON.stringify(response.body)).toContain("Invalid");
@@ -135,21 +158,28 @@ describe("Users route test suite", function () {
         });
     }); });
     it("Should respond with a 401 status code without editing the user data when wrong id is provided", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+        var token, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .put("/users/3")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")
-                        .send({
-                        id: 450,
-                        email: "userTest1@example.com",
-                        firstname: "First Name Test1",
-                        lastname: "Last Name Test1",
-                        password: "false password that won't work",
-                        newpassword: "new password"
+                case 0: return [4 /*yield*/, request.post("/users").send({
+                        email: "random@example.com",
+                        firstname: "random",
+                        lastname: "name",
+                        password: "password"
                     })];
                 case 1:
+                    token = (_a.sent()).body.token;
+                    return [4 /*yield*/, request
+                            .put("/users/420")
+                            .set("Authorization", "Bearer ".concat(token))
+                            .send({
+                            email: "userTest1@example.com",
+                            firstname: "First Name Test1",
+                            lastname: "Last Name Test1",
+                            password: "password",
+                            newpassword: "new password"
+                        })];
+                case 2:
                     response = _a.sent();
                     expect(response.status).toBe(401);
                     expect(JSON.stringify(response.body)).toContain("Invalid");
@@ -158,21 +188,28 @@ describe("Users route test suite", function () {
         });
     }); });
     it("Should edit the user when the JWT is valid", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+        var token, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .put("/users/4")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JE16SmNCaGZGeUZnSU52RnZFU2xtaWV0bUVVTllIclhvVlJ6V0V1djIvaXFHTHZmZTc3eFQ2In0sImlhdCI6MTY1MDcyNDg0OH0.xarm8RzQIksPwXtzBzhB1B7A-7ZGRTxRh-wj2faQauY")
-                        .send({
-                        id: 4,
-                        email: "userTest1@example.com",
-                        firstname: "First Name Test1",
-                        lastname: "Last Name Test1",
-                        password: "password",
-                        newpassword: "new password"
+                case 0: return [4 /*yield*/, request.post("/users").send({
+                        email: "random@example.com",
+                        firstname: "random",
+                        lastname: "name",
+                        password: "password"
                     })];
                 case 1:
+                    token = (_a.sent()).body.token;
+                    return [4 /*yield*/, request
+                            .put("/users/9")
+                            .set("Authorization", "Bearer ".concat(token))
+                            .send({
+                            email: "userTest1@example.com",
+                            firstname: "First Name Test1",
+                            lastname: "Last Name Test1",
+                            password: "password",
+                            newpassword: "new password"
+                        })];
+                case 2:
                     response = _a.sent();
                     expect(response.status).toBe(200);
                     expect(JSON.stringify(response.body)).toContain("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
@@ -181,14 +218,22 @@ describe("Users route test suite", function () {
         });
     }); });
     it("respond with a 401 status code when the wrong password is provided without deleting the user", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+        var token, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .delete("/users/3")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")
-                        .send({ password: "wrong password that won't work" })];
+                case 0: return [4 /*yield*/, request.post("/users").send({
+                        email: "random@example.com",
+                        firstname: "random",
+                        lastname: "name",
+                        password: "password"
+                    })];
                 case 1:
+                    token = (_a.sent()).body.token;
+                    return [4 /*yield*/, request
+                            .delete("/users/10")
+                            .set("Authorization", "Bearer ".concat(token))
+                            .send({ password: "wrong password that won't work" })];
+                case 2:
                     response = _a.sent();
                     expect(response.status).toBe(401);
                     expect(JSON.stringify(response.body)).toContain("Invalid");
@@ -197,14 +242,22 @@ describe("Users route test suite", function () {
         });
     }); });
     it("respond with a 401 status code when the wrong id is provided without deleting the user", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+        var token, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .delete("/users/420")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")
-                        .send({ password: "new password" })];
+                case 0: return [4 /*yield*/, request.post("/users").send({
+                        email: "random@example.com",
+                        firstname: "random",
+                        lastname: "name",
+                        password: "password"
+                    })];
                 case 1:
+                    token = (_a.sent()).body.token;
+                    return [4 /*yield*/, request
+                            .delete("/users/420")
+                            .set("Authorization", "Bearer ".concat(token))
+                            .send({ password: "password" })];
+                case 2:
                     response = _a.sent();
                     expect(response.status).toBe(401);
                     expect(JSON.stringify(response.body)).toContain("Invalid");
@@ -213,17 +266,25 @@ describe("Users route test suite", function () {
         });
     }); });
     it("Should delete the user when the JWT is valid and the user gives the correct id", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+        var token, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .delete("/users/4")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JE16SmNCaGZGeUZnSU52RnZFU2xtaWV0bUVVTllIclhvVlJ6V0V1djIvaXFHTHZmZTc3eFQ2In0sImlhdCI6MTY1MDcyNDg0OH0.xarm8RzQIksPwXtzBzhB1B7A-7ZGRTxRh-wj2faQauY")
-                        .send({ password: "new password" })];
+                case 0: return [4 /*yield*/, request.post("/users").send({
+                        email: "random@example.com",
+                        firstname: "random",
+                        lastname: "name",
+                        password: "password"
+                    })];
                 case 1:
+                    token = (_a.sent()).body.token;
+                    return [4 /*yield*/, request
+                            .delete("/users/12")
+                            .set("Authorization", "Bearer ".concat(token))
+                            .send({ password: "password" })];
+                case 2:
                     response = _a.sent();
                     expect(response.status).toBe(200);
-                    expect(JSON.stringify(response.body)).toContain('"id":4,"email":"userTest1@example.com"');
+                    expect(JSON.stringify(response.body)).toContain('"id":12,"email":"random@example.com"');
                     return [2 /*return*/];
             }
         });

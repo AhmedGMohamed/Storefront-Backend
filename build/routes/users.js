@@ -102,7 +102,7 @@ router.post("/", function (req, res) { return __awaiter(void 0, void 0, void 0, 
             case 1:
                 response = _a.sent();
                 token = jsonwebtoken_1.default.sign({ user: response }, process.env.TOKEN_SECRET);
-                res.json(token);
+                res.json({ token: token });
                 return [3 /*break*/, 3];
             case 2:
                 error_3 = _a.sent();

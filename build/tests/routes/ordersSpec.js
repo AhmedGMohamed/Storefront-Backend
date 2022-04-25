@@ -44,118 +44,169 @@ var index_1 = __importDefault(require("../../index"));
 var insertMockupData_1 = __importDefault(require("../../utils/insertMockupData"));
 var resetTables_1 = __importDefault(require("../../utils/resetTables"));
 var request = (0, supertest_1.default)(index_1.default);
-describe("Orders route test suite", function () {
-    beforeAll(function () { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, insertMockupData_1.default)()];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    afterAll(function () { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, resetTables_1.default)()];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it("Should respond with a JSON containing an array of orders & HTTP status code 200", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .get("/orders")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")];
-                case 1:
-                    response = _a.sent();
-                    expect(response.statusCode).toEqual(200);
-                    expect(JSON.stringify(response.body)).toEqual('[{"id":1,"status":"closed","user_id":"1"},{"id":2,"status":"open","user_id":"2"}]');
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it("Should respond with a JSON containing an order with id 1 & HTTP status code 200 ", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .get("/orders/1")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")];
-                case 1:
-                    response = _a.sent();
-                    expect(response.statusCode).toEqual(200);
-                    expect(JSON.stringify(response.body)).toEqual('{"id":1,"status":"closed","user_id":"1"}');
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it("Should create an order and respond with a JSON containing an order with id 3, Status4 & HTTP status code 200 ", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .post("/orders")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")
-                        .send({ status: "Status4", user_id: "3" })];
-                case 1:
-                    response = _a.sent();
-                    expect(response.statusCode).toEqual(200);
-                    expect(JSON.stringify(response.body)).toEqual('{"id":3,"status":"Status4","user_id":"3"}');
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it("Should edit the order with id 3 and respond with a JSON containing an order with id 3, Status3, & HTTP status code 200", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .put("/orders/3")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")
-                        .send({ status: "Status3", user_id: "3" })];
-                case 1:
-                    response = _a.sent();
-                    expect(response.statusCode).toEqual(200);
-                    expect(JSON.stringify(response.body)).toEqual('{"id":3,"status":"Status3","user_id":"3"}');
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it("Should delete the order with id 3 and respond with a JSON containing the delted order with an HTTP status code 200", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .delete("/orders/3")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")];
-                case 1:
-                    response = _a.sent();
-                    expect(response.statusCode).toEqual(200);
-                    expect(JSON.stringify(response.body)).toEqual('{"id":3,"status":"Status3","user_id":"3"}');
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it("Should add a new item to the order_product table", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request
-                        .post("/orders/product/1")
-                        .set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0")
-                        .send({ quantity: 5, order_id: "2" })];
-                case 1:
-                    response = _a.sent();
-                    expect(response.statusCode).toEqual(200);
-                    expect(JSON.stringify(response.body)).toContain('"order_id":"2","product_id":"1"');
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-});
+describe("Orders route test suite", function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        beforeAll(function () { return __awaiter(void 0, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, insertMockupData_1.default)()];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        afterAll(function () { return __awaiter(void 0, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, resetTables_1.default)()];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("Should respond with a JSON containing an array of orders & HTTP status code 200", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var token, response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.post("/users").send({
+                            email: "random@example.com",
+                            firstname: "random",
+                            lastname: "name",
+                            password: "password"
+                        })];
+                    case 1:
+                        token = (_a.sent()).body.token;
+                        return [4 /*yield*/, request
+                                .get("/orders")
+                                .set("Authorization", "Bearer ".concat(token))];
+                    case 2:
+                        response = _a.sent();
+                        expect(response.statusCode).toEqual(200);
+                        expect(JSON.stringify(response.body)).toEqual('[{"id":1,"status":"closed","user_id":"1"},{"id":2,"status":"open","user_id":"2"}]');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("Should respond with a JSON containing an order with id 1 & HTTP status code 200 ", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var token, response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.post("/users").send({
+                            email: "random@example.com",
+                            firstname: "random",
+                            lastname: "name",
+                            password: "password"
+                        })];
+                    case 1:
+                        token = (_a.sent()).body.token;
+                        return [4 /*yield*/, request
+                                .get("/orders/1")
+                                .set("Authorization", "Bearer ".concat(token))];
+                    case 2:
+                        response = _a.sent();
+                        expect(response.statusCode).toEqual(200);
+                        expect(JSON.stringify(response.body)).toEqual('{"id":1,"status":"closed","user_id":"1"}');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("Should create an order and respond with a JSON containing an order with id 3, Status4 & HTTP status code 200 ", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var token, response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.post("/users").send({
+                            email: "random@example.com",
+                            firstname: "random",
+                            lastname: "name",
+                            password: "password"
+                        })];
+                    case 1:
+                        token = (_a.sent()).body.token;
+                        return [4 /*yield*/, request
+                                .post("/orders")
+                                .set("Authorization", "Bearer ".concat(token))
+                                .send({ status: "Status4", user_id: "3" })];
+                    case 2:
+                        response = _a.sent();
+                        expect(response.statusCode).toEqual(200);
+                        expect(JSON.stringify(response.body)).toEqual('{"id":3,"status":"Status4","user_id":"3"}');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("Should edit the order with id 3 and respond with a JSON containing an order with id 3, Status3, & HTTP status code 200", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var token, response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.post("/users").send({
+                            email: "random@example.com",
+                            firstname: "random",
+                            lastname: "name",
+                            password: "password"
+                        })];
+                    case 1:
+                        token = (_a.sent()).body.token;
+                        return [4 /*yield*/, request
+                                .put("/orders/3")
+                                .set("Authorization", "Bearer ".concat(token))
+                                .send({ status: "Status3", user_id: "3" })];
+                    case 2:
+                        response = _a.sent();
+                        expect(response.statusCode).toEqual(200);
+                        expect(JSON.stringify(response.body)).toEqual('{"id":3,"status":"Status3","user_id":"3"}');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("Should delete the order with id 3 and respond with a JSON containing the delted order with an HTTP status code 200", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var token, response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.post("/users").send({
+                            email: "random@example.com",
+                            firstname: "random",
+                            lastname: "name",
+                            password: "password"
+                        })];
+                    case 1:
+                        token = (_a.sent()).body.token;
+                        return [4 /*yield*/, request
+                                .delete("/orders/3")
+                                .set("Authorization", "Bearer ".concat(token))];
+                    case 2:
+                        response = _a.sent();
+                        expect(response.statusCode).toEqual(200);
+                        expect(JSON.stringify(response.body)).toEqual('{"id":3,"status":"Status3","user_id":"3"}');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("Should add a new item to the order_product table", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var token, response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.post("/users").send({
+                            email: "random@example.com",
+                            firstname: "random",
+                            lastname: "name",
+                            password: "password"
+                        })];
+                    case 1:
+                        token = (_a.sent()).body.token;
+                        return [4 /*yield*/, request
+                                .post("/orders/product/1")
+                                .set("Authorization", "Bearer ".concat(token))
+                                .send({ quantity: 5, order_id: "2" })];
+                    case 2:
+                        response = _a.sent();
+                        expect(response.statusCode).toEqual(200);
+                        expect(JSON.stringify(response.body)).toContain('"order_id":"2","product_id":"1"');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        return [2 /*return*/];
+    });
+}); });

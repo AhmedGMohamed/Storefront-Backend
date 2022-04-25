@@ -29,11 +29,19 @@ describe("Products route test suite", () => {
   });
 
   it("Should create a product and respond with a JSON containing a product with id 3", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
       .post("/products")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       )
       .send({
         name: "Name4",
@@ -46,11 +54,19 @@ describe("Products route test suite", () => {
   });
 
   it("Should edit the product with id 3 and respond with a JSON containing a product with id 3", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
       .put("/products/3")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       )
       .send({ name: "Name3", price: "3", category: "Category3" });
     expect(JSON.stringify(response.body)).toEqual(
@@ -59,11 +75,19 @@ describe("Products route test suite", () => {
   });
 
   it("Should delete the product with id 3 and respond with a JSON containing the deleted product", async () => {
+    const token = (
+      await request.post("/users").send({
+        email: "random@example.com",
+        firstname: "random",
+        lastname: "name",
+        password: "password"
+      })
+    ).body.token;
     const response = await request
       .delete("/products/3")
       .set(
         "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
+        `Bearer ${token}`
       );
     expect(JSON.stringify(response.body)).toEqual(
       '{"id":3,"name":"Name3","price":3,"category":"Category3","order_counter":"0"}'
