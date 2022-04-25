@@ -14,7 +14,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Update (args: id, Product)[token required]: `'/products/:id' [PUT]`
 - Delete (args: id)[token required]: `'/products/:id [DELETE]`
 - [OPTIONAL] Products by category: `'/products/category/:category' [GET]`
-- [OPTIONAL] Top 5 most popular products: `'/dashboard/top-five [GET]`
+- [OPTIONAL] Top 5 most popular products: `'/dashboard/top-five' [GET]`
 
 #### Users
 
@@ -23,7 +23,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Create (args: User): `'/users/' [POST]`
 - Update (args: id, User)[token required]: `'/users/:id' [PUT] (token)`
 - Delete [token required]: `'/users/:id' [DELETE] (token)`
-- Authenticate (args: id, password): `'/users/authenticate/:id'`
+- Authenticate (args: id, password): `'/users/authenticate/:id' [POST]`
 
 #### Orders
 
