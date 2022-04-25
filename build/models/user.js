@@ -46,6 +46,10 @@ var checkPassword_1 = __importDefault(require("../utils/checkPassword"));
 var UserStore = /** @class */ (function () {
     function UserStore() {
     }
+    /**
+     * @description Returns an array of all users found in the database
+     * @returns {Promise<Array<User>>} Promise object containing an array with objects of type User
+     **/
     UserStore.prototype.index = function () {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result;
@@ -64,6 +68,11 @@ var UserStore = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @description Creates a product using the supplied data
+     * @param {(string | number)} id - the id of the user to retrieve from the database
+     * @returns {Promise<User>} Promise object containing an object of type User
+     **/
     UserStore.prototype.show = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result;
@@ -82,6 +91,11 @@ var UserStore = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @description Creates a user using the supplied data
+     * @param {object} u - Object of type User
+     * @returns {Promise<User>} Promise object containing an object of type User
+     **/
     UserStore.prototype.create = function (u) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, hash, result;
@@ -106,6 +120,11 @@ var UserStore = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @description Updates a user using the supplied data
+     * @param {object} u - Object of type User
+     * @returns {Promise<User>} Promise object containing an object of type User
+     **/
     UserStore.prototype.update = function (u) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, hash, result;
@@ -131,6 +150,11 @@ var UserStore = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @description Deletes a user using the supplied data
+     * @param {(string | number)} id - The id of the user to be deleted
+     * @returns {Promise<User>} Promise object containing an object of type User
+     **/
     UserStore.prototype.delete = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result;
@@ -149,6 +173,12 @@ var UserStore = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @description Authenticates a user using the id of the user and the password by checking them against the database
+     * @param {(string | number)} id - The id of the user to authenticate
+     * @param {string} password - The password of the user to check against
+     * @returns {Promise<(User | null)>} Promise object containing an object of type User or null if the user is not authenticated
+     **/
     UserStore.prototype.authenticate = function (id, password) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result, user, error_1;
@@ -167,11 +197,14 @@ var UserStore = /** @class */ (function () {
                         user = result.rows[0];
                         return [4 /*yield*/, (0, checkPassword_1.default)(id, password)];
                     case 3:
+                        //Checks if the password supplied is the same as the password in the database and returns the user
                         if (_a.sent()) {
                             return [2 /*return*/, user];
                         }
                         _a.label = 4;
-                    case 4: return [2 /*return*/, null];
+                    case 4: 
+                    //return null if the password check failed
+                    return [2 /*return*/, null];
                     case 5:
                         error_1 = _a.sent();
                         throw new Error("".concat(error_1));

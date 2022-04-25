@@ -44,6 +44,10 @@ var database_1 = __importDefault(require("../database"));
 var ProductStore = /** @class */ (function () {
     function ProductStore() {
     }
+    /**
+     * @description Returns an array of all products found in the database
+     * @returns {Promise<Array<Product>>} Promise object containing an array with objects of type Product
+     */
     ProductStore.prototype.index = function () {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, error_1;
@@ -68,6 +72,11 @@ var ProductStore = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @description Returns one product using a supplied id
+     * @param {(string | number)} id - The id of the product to retrieve from the database
+     * @returns {Promise<Product>} Promise object containing an object of type Product
+     */
     ProductStore.prototype.show = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, error_2;
@@ -92,6 +101,11 @@ var ProductStore = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @description Creates a product using the supplied data
+     * @param {object} p - Object of type Product
+     * @returns {Promise<Product>} Promise object containing an object of type Product
+     **/
     ProductStore.prototype.create = function (p) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, error_3;
@@ -103,7 +117,11 @@ var ProductStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [p.name, parseInt(p.price), p.category])];
+                        return [4 /*yield*/, conn.query(sql, [
+                                p.name,
+                                parseInt(p.price),
+                                p.category
+                            ])];
                     case 2:
                         result = _a.sent();
                         conn.release();
@@ -116,6 +134,11 @@ var ProductStore = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @description Updates a product using the supplied data
+     * @param {object} p - Object of type Product
+     * @returns {Promise<Product>} Promise object containing an object of type Product
+     **/
     ProductStore.prototype.update = function (p) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, error_4;
@@ -127,7 +150,12 @@ var ProductStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [p.name, parseInt(p.price), p.category, p.id])];
+                        return [4 /*yield*/, conn.query(sql, [
+                                p.name,
+                                parseInt(p.price),
+                                p.category,
+                                p.id
+                            ])];
                     case 2:
                         result = _a.sent();
                         conn.release();
@@ -140,6 +168,11 @@ var ProductStore = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @description Deletes a product using the specified id
+     * @param {(string|number)} id - The product id to be deleted
+     * @returns {Promise<Product>} Promise object containing an object of type Product
+     **/
     ProductStore.prototype.delete = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, error_5;
@@ -164,6 +197,11 @@ var ProductStore = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @description Finds all products with a matching category
+     * @param {string} category - Category type to search against
+     * @returns {Promise<Array<Product>>} Promise object containing an array with objects of type Product
+     **/
     ProductStore.prototype.productCategory = function (category) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, error_6;

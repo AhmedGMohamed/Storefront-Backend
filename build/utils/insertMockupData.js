@@ -42,6 +42,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var database_1 = __importDefault(require("../database"));
 function insertData() {
     return __awaiter(this, void 0, void 0, function () {
+        /**
+         * @description Inserts sample users into the database to be used in jasmine tests
+         */
         function insertUsers() {
             return __awaiter(this, void 0, void 0, function () {
                 var i, sql;
@@ -70,6 +73,9 @@ function insertData() {
                 });
             });
         }
+        /**
+         * @description Inserts sample orders into the database to be used in jasmine tests
+         */
         function insertOrders() {
             return __awaiter(this, void 0, void 0, function () {
                 var i, sql;
@@ -86,7 +92,7 @@ function insertData() {
                         case 2:
                             _a.sent();
                             return [3 /*break*/, 5];
-                        case 3: return [4 /*yield*/, conn.query(sql, ['closed', "".concat(i)])];
+                        case 3: return [4 /*yield*/, conn.query(sql, ["closed", "".concat(i)])];
                         case 4:
                             _a.sent();
                             _a.label = 5;
@@ -98,6 +104,9 @@ function insertData() {
                 });
             });
         }
+        /**
+         * @description Inserts sample products into the database to be used in jasmine tests
+         */
         function insertProducts() {
             return __awaiter(this, void 0, void 0, function () {
                 var i, sql;

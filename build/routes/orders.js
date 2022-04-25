@@ -83,7 +83,7 @@ router.get("/:id", verifyAuthToken_1.default, function (req, res) { return __awa
         }
     });
 }); });
-router.get("/:user_id/user", verifyAuthToken_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.get("/user/:user_id", verifyAuthToken_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var user_id, result, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -164,7 +164,7 @@ router.delete("/:id", verifyAuthToken_1.default, function (req, res) { return __
         }
     });
 }); });
-router.post("/:id/product", verifyAuthToken_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.post("/:order_id/product", verifyAuthToken_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var productOrder, orderStatus, result, error_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -172,7 +172,7 @@ router.post("/:id/product", verifyAuthToken_1.default, function (req, res) { ret
                 _a.trys.push([0, 3, , 4]);
                 productOrder = {
                     quantity: parseInt(req.body.quantity),
-                    order_id: req.params.id,
+                    order_id: req.params.order_id,
                     product_id: req.body.product_id
                 };
                 return [4 /*yield*/, Orders.show(productOrder.order_id)];

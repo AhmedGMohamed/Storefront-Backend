@@ -83,7 +83,7 @@ router.get("/:id", function (req, res) { return __awaiter(void 0, void 0, void 0
         }
     });
 }); });
-router.get('/category/:category', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.get("/category/:category", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var category, result, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {

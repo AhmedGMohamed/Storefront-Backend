@@ -42,6 +42,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var bcrypt_1 = __importDefault(require("bcrypt"));
 var user_1 = require("../models/user");
 var pepper = process.env.BCRYPT_PASSWORD;
+/**
+ * @description Checks the password supplied against the hashed password found in the database
+ * @param {(string | number)} id - The id of the user to check
+ * @param {string} userPassword - The password of the user to compare against the hashed password in the database
+ * @returns {Promise<boolean>} promise object containing a boolean value indicating whether the password matches the hashed password
+ */
 function checker(id, userPassword) {
     return __awaiter(this, void 0, void 0, function () {
         var Users, databasePassword, result;

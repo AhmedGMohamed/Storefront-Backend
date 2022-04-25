@@ -45,8 +45,8 @@ var OrderStore = /** @class */ (function () {
     function OrderStore() {
     }
     /**
-     * @description Returns an array of orders found in the database
-     * @returns {Promise<Order[]>} Result queried from the database
+     * @description Returns an array of all orders found in the database
+     * @returns {Promise<Array<Order>>} Promise object containing an array with objects of type Order
      **/
     OrderStore.prototype.index = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -75,7 +75,7 @@ var OrderStore = /** @class */ (function () {
     /**
      * @description Returns one order using a supplied id
      * @param {string} id
-     * @returns {Promise<Order>} Result order queried from the database
+     * @returns {Promise<Order>} Promise object containing an object of type order
      **/
     OrderStore.prototype.show = function (id) {
         return __awaiter(this, void 0, void 0, function () {
@@ -104,8 +104,8 @@ var OrderStore = /** @class */ (function () {
     };
     /**
      * @description Creates an order using the supplied data
-     * @param {Order} o
-     * @returns {Promise<Order>} Result of the created order in the database
+     * @param {object} o - Object of type Order
+     * @returns {Promise<Order>} Promise object containing an object of type Order
      **/
     OrderStore.prototype.create = function (o) {
         return __awaiter(this, void 0, void 0, function () {
@@ -132,9 +132,9 @@ var OrderStore = /** @class */ (function () {
         });
     };
     /**
-     * @description Updates the order using the supplied data
-     * @param {Order} o
-     * @returns {Promise<Order>} Result queried from the database
+     * @description Updates an order using the supplied data
+     * @param {object} o - Object of type Order
+     * @returns {Promise<Order>} Promise object containing an object of type Order
      **/
     OrderStore.prototype.update = function (o) {
         return __awaiter(this, void 0, void 0, function () {
@@ -162,8 +162,8 @@ var OrderStore = /** @class */ (function () {
     };
     /**
      * @description deletes an order using the specified id
-     * @param {string | number} id
-     * @returns {Promise<Order>} Result of the deleted order from the database
+     * @param {(string | number)} id
+     * @returns {Promise<Order>} Promise object containing an object of type Order
      **/
     OrderStore.prototype.delete = function (id) {
         return __awaiter(this, void 0, void 0, function () {
@@ -191,8 +191,8 @@ var OrderStore = /** @class */ (function () {
     };
     /**
      * @description Returns an array of orders made by a specific user using the user id
-     * @param {string | number} user_id
-     * @returns {Promise<Order[]>} Result queried from the database
+     * @param {(string | number)} user_id
+     * @returns {Promise<Array<Order>>} Promise object containing an array with objects of type Order
      **/
     OrderStore.prototype.orderUser = function (user_id) {
         return __awaiter(this, void 0, void 0, function () {
@@ -219,9 +219,9 @@ var OrderStore = /** @class */ (function () {
         });
     };
     /**
-     * @description Creates and order with the specified product and quantity, and increasing the product order counter
-     * @param {object} p
-     * @returns {Promise<ProductOrder>} Result queried from the database
+     * @description Adds a product to an order with the specified quantity, and increasing the product orders counter
+     * @param {object} p - Object of type ProductOrder
+     * @returns {Promise<ProductOrder>} Promise object containing an object of type ProductOrder
      **/
     OrderStore.prototype.addProductOrder = function (p) {
         return __awaiter(this, void 0, void 0, function () {
@@ -261,6 +261,11 @@ var OrderStore = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @description Returns an array of orders completed by the user with the specified id
+     * @param {(string | number)} user_id - The user's id used to retrieve the orders
+     * @returns {Promise<Array<Order>>} Promise object containing an array with objects of type Order
+     */
     OrderStore.prototype.completedOrdersByUser = function (user_id) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, error_8;

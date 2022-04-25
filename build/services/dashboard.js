@@ -44,6 +44,11 @@ var database_1 = __importDefault(require("../database"));
 var DashboardStore = /** @class */ (function () {
     function DashboardStore() {
     }
+    /**
+     * @description Retrieves an array of the top five ordered
+     *  products from the database
+     * @returns {Promise<Array<Product>>} Promise object containing an array with objects of type Product
+     */
     DashboardStore.prototype.topFiveProducts = function () {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, error_1;

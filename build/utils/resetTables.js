@@ -40,8 +40,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var database_1 = __importDefault(require("../database"));
+/**
+ * @description Resets all of the database tables to use the database again in other test suites
+ */
 function resetTables() {
     return __awaiter(this, void 0, void 0, function () {
+        /**
+         * @description Drops the order_product table to wipe the data inside
+         */
         function dropOrderProduct() {
             return __awaiter(this, void 0, void 0, function () {
                 var sql;
@@ -57,6 +63,9 @@ function resetTables() {
                 });
             });
         }
+        /**
+         * @description Drops the orders table to wipe the data inside
+         */
         function dropOrders() {
             return __awaiter(this, void 0, void 0, function () {
                 var sql;
@@ -72,6 +81,9 @@ function resetTables() {
                 });
             });
         }
+        /**
+         * @description Drops the products table to wipe the data inside
+         */
         function dropProducts() {
             return __awaiter(this, void 0, void 0, function () {
                 var conn, sql;
@@ -90,6 +102,9 @@ function resetTables() {
                 });
             });
         }
+        /**
+         * @description Drops the users table to wipe the data inside
+         */
         function dropUsers() {
             return __awaiter(this, void 0, void 0, function () {
                 var sql;
@@ -105,6 +120,9 @@ function resetTables() {
                 });
             });
         }
+        /**
+         * @description Creates a new users table
+         */
         function createUsers() {
             return __awaiter(this, void 0, void 0, function () {
                 var sql;
@@ -120,6 +138,9 @@ function resetTables() {
                 });
             });
         }
+        /**
+         * @description Creates a new products table
+         */
         function createProducts() {
             return __awaiter(this, void 0, void 0, function () {
                 var conn, sql;
@@ -138,6 +159,9 @@ function resetTables() {
                 });
             });
         }
+        /**
+         * @description Creates a new orders table
+         */
         function createOrders() {
             return __awaiter(this, void 0, void 0, function () {
                 var sql;
@@ -153,6 +177,9 @@ function resetTables() {
                 });
             });
         }
+        /**
+         * @description Creates a new order_product table
+         */
         function createOrderProduct() {
             return __awaiter(this, void 0, void 0, function () {
                 var sql;
