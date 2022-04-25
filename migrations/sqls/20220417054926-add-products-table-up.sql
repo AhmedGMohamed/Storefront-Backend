@@ -1,0 +1,7 @@
+CREATE TABLE products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  price INTEGER NOT NULL,
+  category VARCHAR(128) NOT NULL,
+  order_counter BIGINT DEFAULT 0
+);
