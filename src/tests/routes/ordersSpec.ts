@@ -83,12 +83,12 @@ describe("Orders route test suite", () => {
 
   it("Should add a new item to the order_product table", async () => {
     const response = await request
-      .post("/orders/product/2")
+      .post("/orders/product/1")
       .set(
         "Authorization",
         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6InVzZXJUZXN0MUBleGFtcGxlLmNvbSIsImZpcnN0bmFtZSI6IkZpcnN0IE5hbWUgVGVzdDEiLCJsYXN0bmFtZSI6Ikxhc3QgTmFtZSBUZXN0MSIsInBhc3N3b3JkIjoiJDJiJDA0JHhYZ1pEVmZub0x4dVFnVzlLSHNyL3ViYU9xNjQ4cDhMS016V0FOMzVyRzQ4dm16NnVUb0hLIn0sImlhdCI6MTY1MDcxMTcxOX0.JXFGnKgu5c5sH9kRTMJJU45T44BiLfWdfeCBLOOsix0"
       )
-      .send({ quantity: 5, order_id: "1" });
+      .send({ quantity: 5, order_id: "2" });
     expect(response.statusCode).toEqual(200);
     expect(JSON.stringify(response.body)).toContain(
       '"order_id":"2","product_id":"1"'

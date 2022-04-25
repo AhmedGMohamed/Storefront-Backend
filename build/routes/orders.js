@@ -172,8 +172,8 @@ router.post("/product/:product_id", verifyAuthToken_1.default, function (req, re
                 _a.trys.push([0, 3, , 4]);
                 productOrder = {
                     quantity: parseInt(req.body.quantity),
-                    order_id: req.params.product_id,
-                    product_id: req.body.order_id
+                    order_id: req.body.order_id,
+                    product_id: req.params.product_id
                 };
                 return [4 /*yield*/, Orders.show(productOrder.order_id)];
             case 1:
